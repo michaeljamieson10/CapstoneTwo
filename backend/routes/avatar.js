@@ -43,7 +43,6 @@ router.patch("/:username", ensureCorrectUser,  async function(req, res, next) {
         
         console.log(bodyPart,'this is data passed to the patch route')
         const avatar =  await Avatar.update(username,bodyPart)
-        console.log(avatar,'avatare')
         return res.json(avatar)
     //   if ("username" in req.body || "is_admin" in req.body) {
     //     return next({ status: 400, message: "Not allowed" });
@@ -111,6 +110,7 @@ router.post("/:username", async function(req, res, next) {
     try {
       delete req.body._token;
       const username = req.params.username;
+      console.log(username)
     //   const validation = validate(req.body, userNewSchema);
   
     //   if (!validation.valid) {
@@ -119,7 +119,7 @@ router.post("/:username", async function(req, res, next) {
     //       message: validation.errors.map(e => e.stack)
     //     });
     //   }
-    Avatar.create(username)
+    await Avatar.create(username)
   
     //   const newUser = await User.register(req.body);
       return res.status(201).json({ username });

@@ -44,19 +44,6 @@ const changeBodyPart = require("../helpers/changeBodyPart")
     // return result.rows[0];
   }
   static async create(username){  
-    const duplicateCheck = await db.query(
-      `SELECT username 
-          FROM users 
-          WHERE username = $1`,
-      [username]
-  );
-
-  if (duplicateCheck.rows[0]) {
-    const err = new Error(
-        `There already exists a user with username '${data.username}`);
-    err.status = 409;
-    throw err;
-  }
   
     const result = await db.query(
     `INSERT INTO avatar
