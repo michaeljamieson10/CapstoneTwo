@@ -9,10 +9,12 @@ import Routes from "./Routes";
 // import { HomePage } from '../HomePage';
 // import { LoginPage } from '../LoginPage';
 // import { RegisterPage } from '../RegisterPage';
+export const TOKEN_STORAGE_ID = "dreamsprawl-token";
 
 function App() {
     const alert = useSelector(state => state.alert);
     const dispatch = useDispatch();
+
 
     useEffect(() => {
         history.listen((location, action) => {

@@ -1,4 +1,5 @@
 import { userConstants } from '../constants/users';
+import { avatarConstants } from '../constants/avatarDress'
 // import { userService } from '../services/users';
 import { alertActions } from './alert';
 // import { useHistory } from 'react-router-dom';
@@ -66,8 +67,10 @@ function register(user) {
         dispatch(request(user));
         try{
             const response = await axios.post(`${API_URL}/users`, user);
+            const response2 = await axios.post(`${API_URL}/avatar/${user.username}` );
             dispatch(success());
             history.push('/')
+            console.log(user,'this is user from user register action')
             dispatch(alertActions.success('Registration successful'));
         } catch (err) {
             dispatch(failure(err.toString()));
@@ -80,30 +83,6 @@ function register(user) {
         // dispatch(alertActions.success('Registration successful'));
       };
     
-    // function addPost(post) {
-    //   return {
-    //     type: ADD_POST,
-    //     post
-    //   };
-    
-    // return dispatch => {
-        // dispatch(request(user));
-        
-        // this is a fetch i will use axios
-        // userService.register(user)
-            // .then(
-            //     user => { 
-            //         dispatch(success());
-            //         history.push('/login');
-            //         dispatch(alertActions.success('Registration successful'));
-            //     },
-            //     error => {
-            //         dispatch(failure(error.toString()));
-            //         dispatch(alertActions.error(error.toString()));
-            //     }
-            // );
-    // };
-
     function request(user) { return { type: userConstants.REGISTER_REQUEST, user } }
     function success(user) { return { type: userConstants.REGISTER_SUCCESS, user } }
     function failure(error) { return { type: userConstants.REGISTER_FAILURE, error } }

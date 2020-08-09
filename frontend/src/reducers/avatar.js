@@ -3,11 +3,25 @@ import {avatarDressConstants} from '../constants/avatarDress';
 export default function avatar(state = {}, action) {
   console.log(action)
   switch (action.type) {
-    case avatarDressConstants.GETALL_REQUEST:
+    case avatarDressConstants.AVATAR_GETALL_REQUEST:
       return {
         loading: true
       };
-    case avatarDressConstants.GETALL_SUCCESS:
+    case avatarDressConstants.AVATAR_GETALL_SUCCESS:
+      // items: action.avatar
+      console.log(action.avatar,' action.avatar from reducer')
+      return {
+        items: action.avatar
+      };
+    case avatarDressConstants.AVATAR_CREATE_SUCCESS:
+      // items: action.avatar
+      console.log(action.avatar,' action.avatar from reducer')
+      return {
+        items: action.avatar
+      };
+    case avatarDressConstants.AVATAR_GET_SUCCESS:
+      // items: action.avatar
+      console.log(action.avatar,' action.avatar from reducer')
       return {
         items: action.avatar
       };

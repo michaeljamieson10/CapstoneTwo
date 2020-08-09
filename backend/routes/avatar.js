@@ -10,39 +10,122 @@ const createToken = require("../helpers/createToken");
 const axios = require("axios");
 
 const cloudinary = require('cloudinary').v2
+cloudinary.config({
+    cloud_name: 'dreamsprawl',
+    api_key: "887567873184119",
+    api_secret:"ZNShJ5uwWHvs3LQAeAyXGd2GHNc"
+})
 
 // router.get("/:username", authRequired, async function(req, res, next) {
-router.get("/dress", async function(req, res, next) {
+router.get("/dress", authRequired, async function(req, res, next) {
     try {
-        // req.body
-    //   const user = await Avatar.findOne(req.params.username);
-    //   const user = await Avatar.findOne();
-        // const user = await axios.get('/')
-      return res.json({ user });
+        cloudinary.api.resources(
+            { type: 'upload', 
+            prefix: 'avatar' }, 
+        function(error, result) {
+            return res.json({
+                success: true,
+                result
+            })
+        });
+    } catch (err) {
+      return next(err);
+    }
+  });
+/** PATCH /[handle] {userData} => {user: updatedUser} */
+
+// router.patch("/:username", ensureCorrectUser, async function(req, res, next) {
+router.patch("/:username", ensureCorrectUser,  async function(req, res, next) {
+    try {
+        const username = req.params.username;
+        delete req.body._token;
+        const bodyPart = req.body.data
+        
+        console.log(bodyPart,'this is data passed to the patch route')
+        const avatar =  await Avatar.update(username,bodyPart)
+        console.log(avatar,'avatare')
+        return res.json(avatar)
+    //   if ("username" in req.body || "is_admin" in req.body) {
+    //     return next({ status: 400, message: "Not allowed" });
+    //   }
+    //   await User.authenticate({
+    //     username: req.params.username,
+    //     password: req.body.password
+    //   });
+    //   delete req.body.password;
+    //   const validation = validate(req.body, userUpdateSchema);
+    //   if (!validation.valid) {
+    //     return next({
+    //       status: 400,
+    //       message: validation.errors.map(e => e.stack)
+    //     });
+
+// }
+// return res.json( avatar );
+  
+    //   const user = await User.update(req.params.username, req.body);
+    //   return res.json({ user });
     } catch (err) {
       return next(err);
     }
   });
 
+// router.get("/:username", ensureCorrectUser, async function(req, res, next) {
+router.get("/:username",  async function(req, res, next) {
+    try {
+        const username = req.params.username;
+        const avatar = await Avatar.getUserAvatar(username);
+        console.log(avatar);
+    //   if ("username" in req.body || "is_admin" in req.body) {
+    //     return next({ status: 400, message: "Not allowed" });
+    //   }
+    //   await User.authenticate({
+    //     username: req.params.username,
+    //     password: req.body.password
+    //   });
+    //   delete req.body.password;
+    //   const validation = validate(req.body, userUpdateSchema);
+    //   if (!validation.valid) {
+    //     return next({
+    //       status: 400,
+    //       message: validation.errors.map(e => e.stack)
+    //     });
+
+    // return res.json( {username});
+    return res.json( {avatar});
+// }
+
+    //   const user = await User.update(req.params.username, req.body);
+    //   return res.json({ user });
+    } catch (err) {
+      return next(err);
+    }
+  });
+
+
+
 /** POST / {userdata}  => {token: token} */
 
-// router.post("/:username/avatar/dress", async function(req, res, next) {
-//     try {
-//       delete req.body._token;
-//     //   const validation = validate(req.body, userNewSchema);
+router.post("/:username", async function(req, res, next) {
+    console.log('this is the avatar post route to create avatar')
+    try {
+      delete req.body._token;
+      const username = req.params.username;
+    //   const validation = validate(req.body, userNewSchema);
   
-//       if (!validation.valid) {
-//         return next({
-//           status: 400,
-//           message: validation.errors.map(e => e.stack)
-//         });
-//       }
+    //   if (!validation.valid) {
+    //     return next({
+    //       status: 400,
+    //       message: validation.errors.map(e => e.stack)
+    //     });
+    //   }
+    Avatar.create(username)
   
-//     //   const newUser = await User.register(req.body);
-//       const token = createToken(newUser);
-//       return res.status(201).json({ avatar });
-//     } catch (e) {
-//       return next(e);
-//     }
-//   });
+    //   const newUser = await User.register(req.body);
+      return res.status(201).json({ username });
+    //   return res.status(201).json({ avatar });
+    } catch (e) {
+      return next(e);
+    }
+  });
   module.exports = router;

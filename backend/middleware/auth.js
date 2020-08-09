@@ -75,6 +75,7 @@ function adminRequired(req, res, next) {
 
 function ensureCorrectUser(req, res, next) {
   try {
+    // console.log(req.body._token,'wow you got thhis far')
     const tokenStr = req.body._token || req.query._token;
 
     let token = jwt.verify(tokenStr, SECRET);

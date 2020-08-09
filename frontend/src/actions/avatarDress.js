@@ -7,27 +7,20 @@ import { history } from '../helpers/history';
 import axios from "axios";
 const API_URL = process.env.REACT_APP_API_URL || "http://localhost:3020/api";
 
-console.log('help me')
 export const avatarDressActions = {
     testDress,
-    // logout,
-    // register,
-    // getAll,
-    // delete: _delete,
-    // checkCurrentUser,
+    changeBodyPart,
+    getAvatar,
 };
-
+// route not in use because we are directling calling it with dreamsprawl api
 function testDress(username) {
     return async function (dispatch) {
         dispatch(request({username}));
         try{
         const response = await axios.get(`${API_URL}/avatar/dress`, {username}); 
         const cloudName = 'dreamsprawl';
-        // const url = `https://api.cloudinary.com/v1_1/${cloudName}/resources/avatar`;
-        // let formData = new FormData();
-        // const response = await axios.get(`https://api.cloudinary.com/v1_1/dreamsprawl/resources/avatar`); 
-        // const response = await axios.get(url, formData); 
-        console.log(response);
+        console.log(response.data.result.resources);
+        dispatch(success(response.data.result.resources))
         // dispatch(success(response));
         // dispatch(alertActions.success('Welcome back'));
         } catch (err) {
@@ -35,8 +28,57 @@ function testDress(username) {
             dispatch(alertActions.error(err.toString()));
         }
     }
-    function request(avatar) { return { type: avatarDressConstants.AVATAR_DRESS_REQUEST, avatar } }
-    function success(avatar) { return { type: avatarDressConstants.AVATAR_DRESS_SUCCESS, avatar } }
+    function request(avatar) { return { type: avatarDressConstants.AVATAR_GETALL_REQUEST, avatar } }
+    function success(avatar) { return { type: avatarDressConstants.AVATAR_GETALL_SUCCESS, avatar } }
+    function failure(error) { return { type: avatarDressConstants.AVATAR_DRESS_FAILURE, error } }
+}
+function changeBodyPart(username, data) {
+    return async function (dispatch) {
+        // dispatch(request({username}));
+        try{
+            console.log(username,data,'inside changebodypart')
+        const _token = localStorage.getItem('user');
+        console.log(_token,'this is token in patchroute')
+        // data['_token'] = _token;
+        const response = await axios.patch(`${API_URL}/avatar/${username}`, {_token,data}); 
+        console.log(response)
+        dispatch(avatarDressActions.getAvatar(username));
+        // dispatch(success(response.data.result.resources))
+        // dispatch(success(response));
+        // dispatch(alertActions.success('Welcome back'));
+        } catch (err) {
+            dispatch(failure(err.toString()));
+            dispatch(alertActions.error(err.toString()));
+        }
+    }
+    function request(avatar) { return { type: avatarDressConstants.AVATAR_GETALL_REQUEST, avatar } }
+    function success(avatar) { return { type: avatarDressConstants.AVATAR_GETALL_SUCCESS, avatar } }
+    function failure(error) { return { type: avatarDressConstants.AVATAR_DRESS_FAILURE, error } }
+}
+function getAvatar(username) {
+    return async function (dispatch) {
+        dispatch(request(username));
+        try{
+        const response = await axios.get(`${API_URL}/avatar/${username}`); 
+        console.log(response)
+        // const cloudName = 'dreamsprawl';
+        // const url = `https://api.cloudinary.com/v1_1/${cloudName}/resources/avatar`;
+        // let formData = new FormData();
+        // const response = await axios.get(`https://api.cloudinary.com/v1_1/dreamsprawl/resources/avatar`); 
+        // const response = await axios.get(url, formData); 
+        const avatar = response.data.avatar
+        dispatch(success(avatar))
+        // console.log(response.data.result.resources);
+        // dispatch(success(response.data.result.resources))
+        // dispatch(success(response));
+        // dispatch(alertActions.success('Welcome back'));
+        } catch (err) {
+            dispatch(failure(err.toString()));
+            dispatch(alertActions.error(err.toString()));
+        }
+    }
+    function request(avatar) { return { type: avatarDressConstants.AVATAR_GET_REQUEST, avatar } }
+    function success(avatar) { return { type: avatarDressConstants.AVATAR_GET_SUCCESS, avatar } }
     function failure(error) { return { type: avatarDressConstants.AVATAR_DRESS_FAILURE, error } }
 }
 
