@@ -20,9 +20,9 @@ const [infoLoaded, setInfoLoaded] = useState(false);
 const [tabListOne, setTabListOne] = useState({
   'Head':[], 'Legs':[],'Left Arm':[], 'Right Arm':[], 'Torso':[]
 })
-const [chosenAvatar, setChosenAvatar] = useState({
-  'Head':"avatar/head/h-t-blush_v6rqon", 'Legs':"avatar/legs/l-heel_kpee8l",'Left Arm':'avatar/left-arm/la-default_knghhe', 'Right Arm':"avatar/right-arm/ra-bent_meypnn", 'Torso':"avatar/torso/torso-female_tkc6v4"
-})
+// const [chosenAvatar, setChosenAvatar] = useState({
+  // 'Head':"avatar/head/h-t-blush_v6rqon", 'Legs':"avatar/legs/l-heel_kpee8l",'Left Arm':'avatar/left-arm/la-default_knghhe', 'Right Arm':"avatar/right-arm/ra-bent_meypnn", 'Torso':"avatar/torso/torso-female_tkc6v4"
+// })
 const { username } = decode(userLoggedIn.user)
 const dispatch = useDispatch()
 useEffect(() => {
