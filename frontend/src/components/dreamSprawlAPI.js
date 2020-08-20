@@ -22,6 +22,9 @@ class dreamSprawlAPI {
     } else if (verb === "patch") {
       q = axios.patch(
         `${BASE_URL}/${endpoint}`, { _token, ...params });
+    } else if (verb === "delete") {
+      q = axios.delete(
+        `${BASE_URL}/${endpoint}`,  { params: { _token }});
     }
 
     try {
@@ -42,8 +45,46 @@ class dreamSprawlAPI {
     } catch (err) {
     }
 }
+static async getUser(username){
+try{
+  const res = await this.request(`users/${username}`);
+  console.log(res)
+  // return res.result.resources
+  } catch (err) {
+  }
+}
+static async updateCurrentUser(username, data) {
+  let res = await this.request(`users/${username}`,data,'patch');
+  return res.user;
+}
 
-
+static async deleteUser(username){
+  try{
+    console.log(username)
+    const res = await this.request(`users/${username}`,{},"delete");
+    // console.log(res.result.resources)
+    // return res.result.resources
+    } catch (err) {
+  }
+}
+static async becomeAdmin(username){
+  try{
+    console.log(username)
+    const res = await this.request(`admin/${username}`,{},"patch");
+    // console.log(res.result.resources)
+    // return res.result.resources
+    } catch (err) {
+  }
+}
+static async adminDeleteUser(username){
+  try{
+    console.log(username)
+    const res = await this.request(`admin/${username}`,{},"delete");
+    // console.log(res.result.resources)
+    // return res.result.resources
+    } catch (err) {
+  }
+}
 }
 
 

@@ -3,6 +3,7 @@
 const express = require("express");
 const router = express.Router();
 const User = require("../models/user");
+const Avatar = require("../models/avatar");
 const { ensureCorrectUser, authRequired } = require("../middleware/auth");
 const { userNewSchema, userUpdateSchema } = require("../schemas");
 const { validate } = require("jsonschema");
@@ -64,13 +65,13 @@ router.patch("/:username", ensureCorrectUser, async function(req, res, next) {
       password: req.body.password
     });
     delete req.body.password;
-    const validation = validate(req.body, userUpdateSchema);
-    if (!validation.valid) {
-      return next({
-        status: 400,
-        message: validation.errors.map(e => e.stack)
-      });
-    }
+    // const validation = validate(req.body, userUpdateSchema);
+    // if (!validation.valid) {
+      // return next({
+        // status: 400,
+        // message: validation.errors.map(e => e.stack)
+      // });
+    // }
 
     const user = await User.update(req.params.username, req.body);
     return res.json({ user });
@@ -83,6 +84,7 @@ router.patch("/:username", ensureCorrectUser, async function(req, res, next) {
 
 router.delete("/:username", ensureCorrectUser, async function(req, res, next) {
   try {
+    await Avatar.remove(req.params.username);
     await User.remove(req.params.username);
     return res.json({ message: "User deleted" });
   } catch (err) {

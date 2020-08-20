@@ -8,6 +8,9 @@ import HomePage from "./HomePage";
 import LoginPage from "./LoginPage";
 import RegisterPage from "./RegisterPage";
 import UserAllPage from "./UserAllPage";
+import UserPage from "./UserPage";
+import ProfilePage from "./ProfilePage"
+import AdminPage from "./AdminPage";
 /** these are routes  which when the url goes to the route it will render that componenet inside the route */
 function Routes() {
   return (
@@ -21,11 +24,20 @@ function Routes() {
       <PrivateRoute exact path="/users/all">
         <UserAllPage />
       </PrivateRoute>
+      <PrivateRoute exact path="/users/:username">
+        <UserPage />
+      </PrivateRoute>
+      <PrivateRoute exact path="/admin">
+        <AdminPage />
+      </PrivateRoute>
       <Route exact path="/register">
         <RegisterPage />
       </Route>
       <Route exact path="/login">
         <LoginPage/>
+      </Route>
+      <Route exact path="/profile">
+        <ProfilePage/>
       </Route>
     </Switch>
   );

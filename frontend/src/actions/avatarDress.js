@@ -61,17 +61,9 @@ function getAvatar(username) {
         try{
         const response = await axios.get(`${API_URL}/avatar/${username}`); 
         console.log(response)
-        // const cloudName = 'dreamsprawl';
-        // const url = `https://api.cloudinary.com/v1_1/${cloudName}/resources/avatar`;
-        // let formData = new FormData();
-        // const response = await axios.get(`https://api.cloudinary.com/v1_1/dreamsprawl/resources/avatar`); 
-        // const response = await axios.get(url, formData); 
+   
         const avatar = response.data.avatar
         dispatch(success(avatar))
-        // console.log(response.data.result.resources);
-        // dispatch(success(response.data.result.resources))
-        // dispatch(success(response));
-        // dispatch(alertActions.success('Welcome back'));
         } catch (err) {
             dispatch(failure(err.toString()));
             dispatch(alertActions.error(err.toString()));

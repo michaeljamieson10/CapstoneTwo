@@ -33,7 +33,6 @@ const changeBodyPart = require("../helpers/changeBodyPart")
 
     const result = await db.query(query, values);
 
-    // const user = result.rows[0];
 
     if (!result) {
       let notFound = new Error(`There exists no avatar '${username}`);
@@ -43,6 +42,8 @@ const changeBodyPart = require("../helpers/changeBodyPart")
 
     // return result.rows[0];
   }
+  // This is called when user is registered in order to provide a default avatar.
+
   static async create(username){  
   
     const result = await db.query(
@@ -58,7 +59,20 @@ const changeBodyPart = require("../helpers/changeBodyPart")
       username
     ]);
 
-// return result.rows[0];
+}
+// This is called when User is deleted and removes avatar also.
+static async remove(username) {
+  let result = await db.query(
+          `DELETE FROM avatar 
+            WHERE username = $1
+            RETURNING username`,
+          [username]);
+
+if (result.rows.length === 0) {
+  let notFound = new Error(`There exists no avatar for user '${username}'`);
+  notFound.status = 404;
+  throw notFound;
+}
 }
 
 }

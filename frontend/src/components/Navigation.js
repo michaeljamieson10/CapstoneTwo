@@ -10,6 +10,11 @@ function Navigation() {
     return (
       <ul className="navbar-nav ml-auto">
         <li className="nav-item mr-4">
+          <NavLink className="nav-link" to="/admin">
+            Admin
+          </NavLink>
+        </li>
+        <li className="nav-item mr-4">
           <NavLink className="nav-link" to="/dress">
             Dress Character
           </NavLink>

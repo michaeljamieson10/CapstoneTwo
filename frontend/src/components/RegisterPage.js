@@ -72,6 +72,7 @@ function RegisterPage() {
                         <div className="invalid-feedback">Password is required</div>
                     }
                 </div>
+
                 <div className="form-group">
                     <button className="btn btn-primary">
                         {registering && <span className="spinner-border spinner-border-sm mr-1"></span>}

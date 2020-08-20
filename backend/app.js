@@ -10,8 +10,10 @@ app.use(cors())
 const userRoutes = require("./routes/users");
 const authRoutes = require("./routes/auth");
 const avatarRoutes = require("./routes/avatar");
+const adminRoutes = require("./routes/admin");
 app.use("/api/users", userRoutes);
 app.use("/api/avatar", avatarRoutes);
+app.use("/api/admin", adminRoutes);
 app.use("/api/auth", authRoutes);
 // const PORT = +process.env.PORT || 3001;
 module.exports = app;

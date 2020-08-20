@@ -11,14 +11,6 @@ function ActualAvatar({chosenAvatar}) {
             <Image id='head' cloudName="dreamsprawl" publicId={chosenAvatar['head']}></Image>
             <Image id='right_arm' cloudName="dreamsprawl" publicId={chosenAvatar['right_arm']}></Image>
         </div>
-    // return (
-    //     <div className='theRealAvatar'>
-    //         <Image id='left-arm' cloudName="dreamsprawl" publicId={chosenAvatar['Left Arm']}></Image>
-    //         <Image id='torso' cloudName="dreamsprawl" publicId={chosenAvatar['Torso']}></Image>
-    //         <Image id='legs' cloudName="dreamsprawl" publicId={chosenAvatar['Legs']}></Image>
-    //         <Image id='head' cloudName="dreamsprawl" publicId={chosenAvatar['Head']}></Image>
-    //         <Image id='right-arm' cloudName="dreamsprawl" publicId={chosenAvatar['Right Arm']}></Image>
-    //     </div>
         
 );
 }
