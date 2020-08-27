@@ -65,13 +65,13 @@ router.patch("/:username", ensureCorrectUser, async function(req, res, next) {
       password: req.body.password
     });
     delete req.body.password;
-    // const validation = validate(req.body, userUpdateSchema);
-    // if (!validation.valid) {
-      // return next({
-        // status: 400,
-        // message: validation.errors.map(e => e.stack)
-      // });
-    // }
+    const validation = validate(req.body, userUpdateSchema);
+    if (!validation.valid) {
+      return next({
+        status: 400,
+        message: validation.errors.map(e => e.stack)
+      });
+    }
 
     const user = await User.update(req.params.username, req.body);
     return res.json({ user });
@@ -84,9 +84,11 @@ router.patch("/:username", ensureCorrectUser, async function(req, res, next) {
 
 router.delete("/:username", ensureCorrectUser, async function(req, res, next) {
   try {
-    await Avatar.remove(req.params.username);
+    // Make sure to put this avatar into something else
+    // maybe call on the front end twice during delete?
+    // await Avatar.remove(req.params.username);
     await User.remove(req.params.username);
-    return res.json({ message: "User deleted" });
+    return res.json({  message: "User deleted" });
   } catch (err) {
     return next(err);
   }

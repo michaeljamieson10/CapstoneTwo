@@ -14,7 +14,7 @@ const {SECRET} = require("../config");
  */
 
 function authRequired(req, res, next) {
-  console.log(req.body, req.query)
+  // console.log(req.body, req.query)
   // console.log(req.body, 'inside reqbodyy')
   try {
     const tokenStr = req.body._token || req.query._token;
@@ -45,7 +45,7 @@ function adminRequired(req, res, next) {
     // console.log(req.query._token,' what what')
     
     let token = jwt.verify(tokenStr, SECRET);
-    console.log(token.is_admin,' what what')
+    // console.log(token.is_admin,' what what')
     req.username = token.username;
 
     if (token.is_admin) {
@@ -76,11 +76,11 @@ function adminRequired(req, res, next) {
 
 function ensureCorrectUser(req, res, next) {
   try {
-    console.log(req.body._token,'wow you got thhis far')
+    // console.log(req.body._token,'wow you got thhis far')
     const tokenStr = req.body._token || req.query._token;
     
     let token = jwt.verify(tokenStr, SECRET);
-    console.log(token.username,'wow you got thhis far')
+    // console.log(token.username,'wow you got thhis far')
     req.username = token.username;
 
     if (token.username === req.params.username) {

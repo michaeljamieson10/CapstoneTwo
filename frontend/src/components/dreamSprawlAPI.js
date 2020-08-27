@@ -67,6 +67,15 @@ static async deleteUser(username){
     } catch (err) {
   }
 }
+static async deleteAvatar(username){
+  try{
+    console.log(username)
+    const res = await this.request(`avatar/${username}`,{},"delete");
+    // console.log(res.result.resources)
+    // return res.result.resources
+    } catch (err) {
+  }
+}
 static async becomeAdmin(username){
   try{
     console.log(username)

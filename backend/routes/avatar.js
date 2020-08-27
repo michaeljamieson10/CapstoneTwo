@@ -128,4 +128,17 @@ router.post("/:username", async function(req, res, next) {
       return next(e);
     }
   });
+  /** DELETE /[handle]  =>  {message: "User deleted"}  */
+
+router.delete("/:username", ensureCorrectUser, async function(req, res, next) {
+  try {
+    // Make sure to put this avatar into something else
+    // maybe call on the front end twice during delete?
+    await Avatar.remove(req.params.username);
+    // await User.remove(req.params.username);
+    return res.json({  message: "User deleted" });
+  } catch (err) {
+    return next(err);
+  }
+});
   module.exports = router;
