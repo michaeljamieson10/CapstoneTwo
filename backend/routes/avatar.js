@@ -4,7 +4,7 @@ const express = require("express");
 const router = express.Router();
 const Avatar = require("../models/avatar");
 const { ensureCorrectUser, authRequired } = require("../middleware/auth");
-const { userNewSchema, userUpdateSchema } = require("../schemas");
+const { userNewSchema, avatarUpdateSchema } = require("../schemas");
 const { validate } = require("jsonschema");
 const createToken = require("../helpers/createToken");
 const axios = require("axios");
@@ -38,6 +38,13 @@ router.get("/dress", authRequired, async function(req, res, next) {
 router.patch("/:username", ensureCorrectUser,  async function(req, res, next) {
     try {
         const username = req.params.username;
+        const validation = validate(req.body, avatarUpdateSchema);
+        if (!validation.valid) {
+          return next({
+            status: 400,
+            message: validation.errors.map(e => e.stack)
+          });
+        }
         delete req.body._token;
         const bodyPart = req.body.data
         

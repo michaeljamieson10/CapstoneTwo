@@ -40,7 +40,7 @@ const changeBodyPart = require("../helpers/changeBodyPart")
       throw notFound;
     }
 
-    // return result.rows[0];
+    return result.rows[0];
   }
   // This is called when user is registered in order to provide a default avatar.
 
