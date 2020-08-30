@@ -2,7 +2,7 @@ import axios from "axios";
 import { TOKEN_STORAGE_ID } from "./App.js"
 // const BASE_URL = process.env.REACT_APP_BASE_URL || "http://localhost:3001";
 
-const BASE_URL = process.env.REACT_APP_BASE_URL || "http://localhost:3020/api";
+const BASE_URL = process.env.REACT_APP_BASE_URL || "http://localhost:3020";
 
 class dreamSprawlAPI {
   static async request(endpoint, params = {}, verb = "get") {
@@ -16,19 +16,19 @@ class dreamSprawlAPI {
 
     if (verb === "get") {
       q = axios.get(
-        `${BASE_URL}/${endpoint}`, { params: { _token, ...params } });
+        `${BASE_URL}/api/${endpoint}`, { params: { _token, ...params } });
     } else if (verb === "post") {
       q = axios.post(
-        `${BASE_URL}/${endpoint}`, { _token, ...params });
+        `${BASE_URL}/api/${endpoint}`, { _token, ...params });
     } else if (verb === "patch") {
       q = axios.patch(
-        `${BASE_URL}/${endpoint}`, { _token, ...params });
+        `${BASE_URL}/api/${endpoint}`, { _token, ...params });
     } else if (verb === "delete") {
       q = axios.delete(
-        `${BASE_URL}/${endpoint}`,  { params: { _token }});
+        `${BASE_URL}/api/${endpoint}`,  { params: { _token }});
     }else if (verb === "deleteadmin") {
       q = axios.delete(
-        `${BASE_URL}/${endpoint}`,  {data: { _token }});
+        `${BASE_URL}/api/${endpoint}`,  {data: { _token }});
         // `${BASE_URL}/${endpoint}`,  { params: { _token }});
     }
 
