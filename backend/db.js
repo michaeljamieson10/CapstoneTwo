@@ -1,4 +1,4 @@
-/** Database setup for jobly. */
+/** Database setup for dreamsprawl. */
 
 
 const { Client } = require("pg");

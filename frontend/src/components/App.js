@@ -5,6 +5,7 @@ import { history } from '../helpers/history';
 import { alertActions } from '../actions/alert';
 import Navigation from "./Navigation";
 import Routes from "./Routes";
+import './App.css'
 // import { PrivateRoute } from '../components';
 // import { HomePage } from '../HomePage';
 // import { LoginPage } from '../LoginPage';
@@ -24,19 +25,21 @@ function App() {
     }, []);
 
     return (
-
+        <div className="App">
                 <div className="col-md-8 offset-md-2">
                     {alert.message &&
                         <div className={`alert ${alert.type}`}>{alert.message}</div>
                     }
                   <Router history={history}>
-                  <div className="jumbotron">
-                    <div className="container">
+                  {/* <div className="jumbotron"> */}
+                  
+                    {/* <div className="container"> */}
                     <Navigation />
-                        </div>
-                    </div>
+                        {/* </div> */}
+                    {/* </div> */}
                     <Routes />
                   </Router>
+                  </div>
         </div>
     );
 }

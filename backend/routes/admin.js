@@ -13,13 +13,10 @@ const createToken = require("../helpers/createToken");
 
 router.patch("/:username", ensureCorrectUser, async function(req, res, next) {
   try {
-    // if ("username" in req.body || "is_admin" in req.body) {
-    //   return next({ status: 400, message: "Not allowed" });
-    // }
-    // await User.authenticate({
-    //   username: req.params.username,
-    //   password: req.body.password
-    // });
+    if ("username" in req.body || "is_admin" in req.body) {
+      return next({ status: 400, message: "Not allowed" });
+    }
+
     // delete req.body.password;
     // const validation = validate(req.body, userUpdateSchema);
     // if (!validation.valid) {

@@ -24,7 +24,7 @@ function AdminPage() {
     }, []);
     async function becomeAdmin(){
         await dreamSprawlAPI.becomeAdmin(username);
-        history.push('/')
+        history.push('/login')
     }
     async function adminDeleteUser(data){
         console.log(data)

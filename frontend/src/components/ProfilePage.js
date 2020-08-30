@@ -22,6 +22,7 @@ function Profile() {
         // setCurrentUser(user);
     }
     async function deleteUser(data){
+        await dreamSprawlAPI.deleteAvatar(username)
         await dreamSprawlAPI.deleteUser(username);
         history.push('/login')
     }
@@ -30,7 +31,11 @@ function Profile() {
                <Card>
       <CardBody>
             <ProfileForm updateUser={updateUser} />
-            <Button onClick={deleteUser} color="danger">Delete Your Account</Button>
+            
+                <CardBody>
+                    <p><b>Finished Playing? Delete your account here</b></p>
+                    <Button onClick={deleteUser} color="danger">Delete Your Account</Button>
+                </CardBody>
             </CardBody>
             </Card>
         </div>

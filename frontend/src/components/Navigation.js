@@ -2,12 +2,16 @@ import React, { useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import { userActions } from '../actions/users';
+import Navbar from 'react-bootstrap/Navbar';
+import './Navigation.css'
+
 
 function Navigation() {
   const userLoggedIn = useSelector(state => state.authentication.loggedIn);
   const dispatch = useDispatch()
   function loggedInNav() {
     return (
+      
       <ul className="navbar-nav ml-auto">
         <li className="nav-item mr-4">
           <NavLink className="nav-link" to="/admin">
@@ -35,6 +39,7 @@ function Navigation() {
           </Link>
         </li>
       </ul>
+      
     );
   }
 
@@ -56,13 +61,15 @@ function Navigation() {
   }
 
   return (
-    <nav className="Navigation navbar navbar-expand-md">
+    <Navbar className='Navigation' bg="light">
+    {/* <nav className="Navigation navbar navbar-expand-md"> */}
       <Link className="navbar-brand" to="/">
         Dreamsprawl
       </Link>
       {/* {loggedInNav()} */}
       {userLoggedIn ? loggedInNav() : loggedOutNav()}
-    </nav>
+      </Navbar>
+    // </nav>
   );
 }
 
