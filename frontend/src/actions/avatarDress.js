@@ -5,8 +5,8 @@ import { alertActions } from './alert';
 import { history } from '../helpers/history';
 // const history = useHistory();
 import axios from "axios";
-const API_URL = process.env.REACT_APP_API_URL || "http://localhost:3020/api";
-
+// const BASE_URL = process.env.REACT_APP_BASE_URL || "http://localhost:3020/api";
+const BASE_URL = process.env.REACT_APP_BASE_URL || "http://localhost:3020/api";
 export const avatarDressActions = {
     testDress,
     changeBodyPart,
@@ -17,7 +17,7 @@ function testDress(username) {
     return async function (dispatch) {
         dispatch(request({username}));
         try{
-        const response = await axios.get(`${API_URL}/avatar/dress`, {username}); 
+        const response = await axios.get(`${BASE_URL}/avatar/dress`, {username}); 
         const cloudName = 'dreamsprawl';
         console.log(response.data.result.resources);
         dispatch(success(response.data.result.resources))
@@ -40,7 +40,7 @@ function changeBodyPart(username, data) {
         const _token = localStorage.getItem('user');
         console.log(_token,'this is token in patchroute')
         // data['_token'] = _token;
-        const response = await axios.patch(`${API_URL}/avatar/${username}`, {_token,data}); 
+        const response = await axios.patch(`${BASE_URL}/avatar/${username}`, {_token,data}); 
         console.log(response)
         dispatch(avatarDressActions.getAvatar(username));
         // dispatch(success(response.data.result.resources))
@@ -59,7 +59,7 @@ function getAvatar(username) {
     return async function (dispatch) {
         dispatch(request(username));
         try{
-        const response = await axios.get(`${API_URL}/avatar/${username}`); 
+        const response = await axios.get(`${BASE_URL}/avatar/${username}`); 
         console.log(response)
    
         const avatar = response.data.avatar
@@ -86,7 +86,7 @@ function getAvatar(username) {
 
 //         dispatch(request(user));
 //         try{
-//             const response = await axios.post(`${API_URL}/users`, user);
+//             const response = await axios.post(`${BASE_URL}/users`, user);
 //             dispatch(success());
 //             history.push('/')
 //             dispatch(alertActions.success('Registration successful'));
@@ -110,7 +110,7 @@ function getAvatar(username) {
 //         try{
 //             const _token = localStorage.getItem('user');
 //             console.log({_token},'token')
-//             const response = await axios.get(`${API_URL}/users`, {
+//             const response = await axios.get(`${BASE_URL}/users`, {
 //                 params: {_token}}); 
 //             console.log(response.data.users)
 //             const users = response.data.users;

@@ -6,7 +6,7 @@ import { alertActions } from './alert';
 import { history } from '../helpers/history';
 // const history = useHistory();
 import axios from "axios";
-const API_URL = process.env.REACT_APP_API_URL || "http://localhost:3020/api";
+const BASE_URL = process.env.REACT_APP_BASE_URL || "http://localhost:3020/api";
 
 
 
@@ -23,7 +23,7 @@ function login(username, password) {
     return async function (dispatch) {
         dispatch(request({username}));
         try{
-        const response = await axios.post(`${API_URL}/auth/login`, {username, password}); 
+        const response = await axios.post(`${BASE_URL}/auth/login`, {username, password}); 
         localStorage.setItem('user', response.data.token);
         dispatch(success(response.data.token));
         history.push('/')
@@ -66,8 +66,8 @@ function register(user) {
 
         dispatch(request(user));
         try{
-            const response = await axios.post(`${API_URL}/users`, user);
-            const response2 = await axios.post(`${API_URL}/avatar/${user.username}` );
+            const response = await axios.post(`${BASE_URL}/users`, user);
+            const response2 = await axios.post(`${BASE_URL}/avatar/${user.username}` );
             dispatch(success());
             history.push('/')
             console.log(user,'this is user from user register action')
@@ -91,7 +91,7 @@ function register(user) {
 //     return async function (dispatch) {
 //         try{
 //             const user = localStorage.getItem('user')
-//             const response = await axios.post(`${API_URL}/users`, user);
+//             const response = await axios.post(`${BASE_URL}/users`, user);
 //             history.push('/')
 //         } catch (err) {
 //             history.push('/login')
@@ -101,7 +101,7 @@ function register(user) {
 
 function getAll() {
     // const authAxios = axios.create({
-    //     baseURL: API_URL,
+    //     baseURL: BASE_URL,
     //     headers: {
     //         Authorization: `Bearer ${JSON.parse(localStorage.getItem('user'))}`
     //     }
@@ -112,7 +112,7 @@ function getAll() {
         try{
             const _token = localStorage.getItem('user');
             console.log({_token},'token')
-            const response = await axios.get(`${API_URL}/users`, {
+            const response = await axios.get(`${BASE_URL}/users`, {
                 params: {_token}}); 
             console.log(response.data.users)
             // const response2 = await axios.get()
