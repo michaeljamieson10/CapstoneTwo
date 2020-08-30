@@ -6,7 +6,7 @@ import { history } from '../helpers/history';
 // const history = useHistory();
 import axios from "axios";
 // const BASE_URL = process.env.REACT_APP_BASE_URL || "http://localhost:3020/api";
-const BASE_URL = process.env.REACT_APP_BASE_URL || "http://localhost:3020/api";
+const BASE_URL = process.env.REACT_APP_BASE_URL || "http://localhost:3020";
 export const avatarDressActions = {
     testDress,
     changeBodyPart,
@@ -17,7 +17,7 @@ function testDress(username) {
     return async function (dispatch) {
         dispatch(request({username}));
         try{
-        const response = await axios.get(`${BASE_URL}/avatar/dress`, {username}); 
+        const response = await axios.get(`${BASE_URL}/api/avatar/dress`, {username}); 
         const cloudName = 'dreamsprawl';
         console.log(response.data.result.resources);
         dispatch(success(response.data.result.resources))
@@ -40,7 +40,7 @@ function changeBodyPart(username, data) {
         const _token = localStorage.getItem('user');
         console.log(_token,'this is token in patchroute')
         // data['_token'] = _token;
-        const response = await axios.patch(`${BASE_URL}/avatar/${username}`, {_token,data}); 
+        const response = await axios.patch(`${BASE_URL}/api/avatar/${username}`, {_token,data}); 
         console.log(response)
         dispatch(avatarDressActions.getAvatar(username));
         // dispatch(success(response.data.result.resources))
@@ -59,7 +59,7 @@ function getAvatar(username) {
     return async function (dispatch) {
         dispatch(request(username));
         try{
-        const response = await axios.get(`${BASE_URL}/avatar/${username}`); 
+        const response = await axios.get(`${BASE_URL}/api/avatar/${username}`); 
         console.log(response)
    
         const avatar = response.data.avatar
