@@ -9,7 +9,9 @@ const { userNewSchema, userUpdateSchema } = require("../schemas");
 const { validate } = require("jsonschema");
 const createToken = require("../helpers/createToken");
 
-// router.get("/", authRequired, async function(req, res, next) {
+/**
+ * Get all users 
+ */
 router.get("/", authRequired, async function(req, res, next) {
     try {
       const users = await User.findAll();
@@ -20,7 +22,7 @@ router.get("/", authRequired, async function(req, res, next) {
     }
   });
   
-/** GET /[username] => {user: user} */
+/** GET specific users */
 
 router.get("/:username", authRequired, async function(req, res, next) {
   try {
@@ -84,9 +86,6 @@ router.patch("/:username", ensureCorrectUser, async function(req, res, next) {
 
 router.delete("/:username", ensureCorrectUser, async function(req, res, next) {
   try {
-    // Make sure to put this avatar into something else
-    // maybe call on the front end twice during delete?
-    // await Avatar.remove(req.params.username);
     await User.remove(req.params.username);
     return res.json({  message: "User deleted" });
   } catch (err) {
