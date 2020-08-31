@@ -16,7 +16,10 @@ cloudinary.config({
     api_secret:"ZNShJ5uwWHvs3LQAeAyXGd2GHNc"
 })
 
-// router.get("/:username", authRequired, async function(req, res, next) {
+/**
+ * calls the api and gets all of the avatar body parts
+ */
+
 router.get("/dress", authRequired, async function(req, res, next) {
     try {
         cloudinary.api.resources(
@@ -34,7 +37,7 @@ router.get("/dress", authRequired, async function(req, res, next) {
   });
 /** PATCH /[handle] {userData} => {user: updatedUser} */
 
-// router.patch("/:username", ensureCorrectUser, async function(req, res, next) {
+
 router.patch("/:username", ensureCorrectUser,  async function(req, res, next) {
     try {
         const username = req.params.username;
@@ -48,61 +51,27 @@ router.patch("/:username", ensureCorrectUser,  async function(req, res, next) {
         delete req.body._token;
         const bodyPart = req.body.data
         
-        console.log(bodyPart,'this is data passed to the patch route')
         const avatar =  await Avatar.update(username,bodyPart)
         return res.json(avatar)
-    //   if ("username" in req.body || "is_admin" in req.body) {
-    //     return next({ status: 400, message: "Not allowed" });
-    //   }
-    //   await User.authenticate({
-    //     username: req.params.username,
-    //     password: req.body.password
-    //   });
-    //   delete req.body.password;
-    //   const validation = validate(req.body, userUpdateSchema);
-    //   if (!validation.valid) {
-    //     return next({
-    //       status: 400,
-    //       message: validation.errors.map(e => e.stack)
-    //     });
-
-// }
-// return res.json( avatar );
-  
-    //   const user = await User.update(req.params.username, req.body);
-    //   return res.json({ user });
     } catch (err) {
       return next(err);
     }
   });
 
-// router.get("/:username", ensureCorrectUser, async function(req, res, next) {
+/**
+ * get user avatar from database
+ * database just holds /folder/bodypart/position-of-bodypart
+ * then the api cloudinary holds the images
+ **/  
+
 router.get("/:username",ensureCorrectUser,  async function(req, res, next) {
     try {
         const username = req.params.username;
         const avatar = await Avatar.getUserAvatar(username);
         console.log(avatar);
-    //   if ("username" in req.body || "is_admin" in req.body) {
-    //     return next({ status: 400, message: "Not allowed" });
-    //   }
-    //   await User.authenticate({
-    //     username: req.params.username,
-    //     password: req.body.password
-    //   });
-    //   delete req.body.password;
-    //   const validation = validate(req.body, userUpdateSchema);
-    //   if (!validation.valid) {
-    //     return next({
-    //       status: 400,
-    //       message: validation.errors.map(e => e.stack)
-    //     });
 
-    // return res.json( {username});
     return res.json( {avatar});
-// }
 
-    //   const user = await User.update(req.params.username, req.body);
-    //   return res.json({ user });
     } catch (err) {
       return next(err);
     }
@@ -110,22 +79,13 @@ router.get("/:username",ensureCorrectUser,  async function(req, res, next) {
 
 
 
-/** POST / {userdata}  => {token: token} */
+/** POST This is the avatar post route */
 
 router.post("/:username", async function(req, res, next) {
-    console.log('this is the avatar post route to create avatar')
     try {
       delete req.body._token;
       const username = req.params.username;
-      console.log(username)
-    //   const validation = validate(req.body, userNewSchema);
   
-    //   if (!validation.valid) {
-    //     return next({
-    //       status: 400,
-    //       message: validation.errors.map(e => e.stack)
-    //     });
-    //   }
     await Avatar.create(username)
   
     //   const newUser = await User.register(req.body);
@@ -135,6 +95,7 @@ router.post("/:username", async function(req, res, next) {
       return next(e);
     }
   });
+  
   /** DELETE /[handle]  =>  {message: "User deleted"}  */
 
 router.delete("/:username", ensureCorrectUser, async function(req, res, next) {

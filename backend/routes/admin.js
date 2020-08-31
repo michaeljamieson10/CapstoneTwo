@@ -11,24 +11,15 @@ const createToken = require("../helpers/createToken");
 
 /** PATCH 
  * Makes user admin by setting true to false
- * checks first to see if admin is inside with isAdminUpdateSchema
+ * did not add a json schema because no json is passed to this patch route
  */
 
 router.patch("/:username", ensureCorrectUser, async function(req, res, next) {
+  
   try {
     if ("username" in req.body || "is_admin" in req.body) {
       return next({ status: 400, message: "Not allowed" });
     }
-    // MAKE A JSON SCHEMA WHEN YOU GET HOME
-
-    // delete req.body.password;
-    // const validation = validate(req.body, userUpdateSchema);
-    // if (!validation.valid) {
-      // return next({
-        // status: 400,
-        // message: validation.errors.map(e => e.stack)
-      // });
-    // }
     const user = await User.becomeAdmin(req.params.username);
     return res.json({ user });
   } catch (err) {
