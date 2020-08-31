@@ -20,6 +20,19 @@ const changeBodyPart = require("../helpers/changeBodyPart")
 
     return avatar;
   }
+
+  /**
+   * 
+   *This updates the part of the body of the avatar with the related body part 
+   *
+   * changeBodyPart find which body part is which by the folder name in the data
+   *
+   *  then it is changed into an object with psql tables as the key and the changed
+   * 
+   * body part to the value clicked on. 
+   * 
+   */
+
   static async update(username, data) {
    
     const bodyPart = changeBodyPart(data)
@@ -42,7 +55,17 @@ const changeBodyPart = require("../helpers/changeBodyPart")
 
     return result.rows[0];
   }
-  // This is called when user is registered in order to provide a default avatar.
+
+  /** 
+   * Creates avatar with default male body parts, 
+   * 
+   * the data stored here is a reference to the image files
+   * 
+   * stored in cloudinary.
+   * 
+   *  This is called when user is registered in order to provide a default avatar.
+   * 
+   * */
 
   static async create(username){  
   
@@ -60,7 +83,13 @@ const changeBodyPart = require("../helpers/changeBodyPart")
     ]);
 
 }
-// This is called when User is deleted and removes avatar also.
+/**
+ * Deletes avatar, this is called first and the delete user whenever 
+ * 
+ * delete is called
+ * 
+ */
+
 static async remove(username) {
   let result = await db.query(
           `DELETE FROM avatar 

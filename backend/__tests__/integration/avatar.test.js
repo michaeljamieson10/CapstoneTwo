@@ -39,72 +39,6 @@ afterAll(async function () {
 });
 
 
-// describe("POST /users",  () => {
-//   it("Creates a new user", async function () {
-
-//     let dataObj = {
-//       username: "whiskey",
-//       first_name: "Whiskey",
-//       password: "foo123",
-//       last_name: "Lane",
-//       email: "whiskey@rithmschool.com",
-//     };
-//     const response = await request(app)
-//         .post("/api/users")
-//         .send(dataObj);
-//     expect(response.statusCode).toBe(201);
-//     expect(response.body).toHaveProperty("token");
-//     const whiskeyInDb = await User.findOne("whiskey");
-//     ["username", "first_name", "last_name"].forEach(key => {
-//       expect(dataObj[key]).toEqual(whiskeyInDb[key]);
-//     });
-//   });
-//   test("Creates a new user", async function () {
-//     let dataObj = {
-//       username: "whiskey",
-//       first_name: "Whiskey",
-//       password: "foo123",
-//       last_name: "Lane",
-//       email: "whiskey@rithmschool.com",
-//     };
-//     const response = await request(app)
-//         .post("/api/users")
-//         .send(dataObj);
-//     expect(response.statusCode).toBe(201);
-//     expect(response.body).toHaveProperty("token");
-//     const whiskeyInDb = await User.findOne("whiskey");
-//     ["username", "first_name", "last_name"].forEach(key => {
-//       expect(dataObj[key]).toEqual(whiskeyInDb[key]);
-//     });
-//   });
-
-//   test("Prevents creating a user with duplicate username", async function () {
-//     const response = await request(app)
-//         .post("/api/users")
-//         .send({
-//           username: "test",
-//           first_name: "Test",
-//           password: "foo123",
-//           last_name: "McTester",
-//           email: "test@rithmschool.com",
-//         });
-//     expect(response.statusCode).toBe(409);
-//   });
-
-//   test("Prevents creating a user without required password field", async function () {
-//     const response = await request(app)
-//         .post("/api/users")
-//         .send({
-//           username: "test",
-//           first_name: "Test",
-//           last_name: "McTester",
-//           email: "test@rithmschool.com"
-//         });
-//     expect(response.statusCode).toBe(400);
-//   });
-// });
-
-
 describe("GET /api/avatar/dress", async function () {
   test("Gets a list of 1 user", async function () {
     const response = await request(app)
@@ -144,10 +78,6 @@ describe("PATCH /users/:username", async () => {
         .patch(`/api/avatar/${TEST_DATA.currentUsername}`)
         .send({data: "avatar/left_arm/la-bent_efaup8", _token: `${TEST_DATA.userToken}`});
     console.log(response.body,'resposne body of patch')
-    // const user = response.body.user;
-    // const user = response.body.user;
-    // expect(user).toHaveProperty("username");
-    // expect(user).not.toHaveProperty("password");
     expect(response.body).toMatchObject({
         "left_arm": "avatar/left_arm/la-bent_efaup8",
         "right_arm": "avatar/right_arm/ra-default_dfesuh",

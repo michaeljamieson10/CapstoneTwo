@@ -151,15 +151,6 @@ describe("PATCH /users/:username", async () => {
     expect(user.username).not.toBe(null);
   });
 
-  // test("Updates a single a user's password", async function () {
-    // const response = await request(app)
-        // .patch(`/users/${TEST_DATA.currentUsername}`)
-        // .send({_token: `${TEST_DATA.userToken}`, password: "foo12345"});
-    // const user = response.body.user;
-    // expect(user).toHaveProperty("username");
-    // expect(user).not.toHaveProperty("password");
-  // });
-
   test("Prevents a bad user update, need password to update", async function () {
     const response = await request(app)
         .patch(`/api/users/${TEST_DATA.currentUsername}`)
@@ -174,16 +165,6 @@ describe("PATCH /users/:username", async () => {
     expect(response.statusCode).toBe(401);
   });
 
-  // test("Responds with a 404 if it cannot find the user in question", async function () {
-  //   // delete user first
-  //   await request(app)
-  //       .delete(`/api/users/${TEST_DATA.currentUsername}`)
-  //       .send({_token: `${TEST_DATA.userToken}`});
-  //   const response = await request(app)
-  //       .patch(`/api/users/${TEST_DATA.currentUsername}`)
-  //       .send({"password": "secret", _token: `${TEST_DATA.userToken}`});
-  //   expect(response.statusCode).toBe(404);
-  // });
 });
 
 

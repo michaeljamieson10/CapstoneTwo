@@ -158,9 +158,13 @@ class User {
     throw notFound;
   }
 }
+/**
+ * Take user and make user and admin,
+ * sets is_admin to true
+ */
+
 static async becomeAdmin(username){
   let result = await db.query(
-    // UPDATE ${table} SET ${cols} WHERE ${key}=$${idx} RETURNING 
     `UPDATE users SET is_admin = true WHERE username = $1
       RETURNING username`,
     [username]);

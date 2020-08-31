@@ -36,9 +36,9 @@ function Routes() {
       <Route exact path="/login">
         <LoginPage/>
       </Route>
-      <Route exact path="/profile">
+      <PrivateRoute exact path="/profile">
         <ProfilePage/>
-      </Route>
+      </PrivateRoute>
     </Switch>
   );
 }

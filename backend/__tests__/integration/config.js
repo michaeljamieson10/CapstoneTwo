@@ -114,37 +114,11 @@ async function beforeEachHook(TEST_DATA) {
   console.log('after inserting into db avatar')
 
   }
-    // do the same for company "companies"
-    // const result = await db.query(
-      // "INSERT INTO companies (handle, name, num_employees) VALUES ($1, $2, $3) RETURNING *",
-      // ["rithm", "rithm inc", 1000]
-    // );
-
-    // TEST_DATA.currentCompany = result.rows[0];
-
-    // const newJob = await db.query(
-      // "INSERT INTO jobs (title, salary, company_handle) VALUES ('Software Engineer', 100000, $1) RETURNING *",
-      // [TEST_DATA.currentCompany.handle]
-    // );
-    // TEST_DATA.jobId = newJob.rows[0].id;
-
-    // const newJobApp = await db.query(
-      // "INSERT INTO applications (job_id, username) VALUES ($1, $2) RETURNING *",
-      // [TEST_DATA.jobId, TEST_DATA.currentUsername]
-    // );
-    // TEST_DATA.jobApp = newJobApp.rows[0];
-  // } catch (error) {
-    // console.error(error);
-  // }
-// }
-
+    
 async function afterEachHook() {
   try {
-    // await db.query("DELETE FROM applications");
-    // await db.query("DELETE FROM jobs");
     await db.query("DELETE FROM avatar");
     await db.query("DELETE FROM users");
-    // await db.query("DELETE FROM companies");
   } catch (error) {
     console.error(error);
   }
@@ -152,11 +126,8 @@ async function afterEachHook() {
 
 async function afterAllHook() {
   try {
-    // await db.query("DROP TABLE IF EXISTS applications");
-    // await db.query("DROP TABLE IF EXISTS jobs");
     await db.query("DROP TABLE IF EXISTS avatar");
     await db.query("DROP TABLE IF EXISTS users");
-    // await db.query("DROP TABLE IF EXISTS companies");
     await db.end();
   } catch (err) {
     console.error(err);

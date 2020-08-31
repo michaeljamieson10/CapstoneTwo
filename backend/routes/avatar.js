@@ -77,7 +77,7 @@ router.patch("/:username", ensureCorrectUser,  async function(req, res, next) {
   });
 
 // router.get("/:username", ensureCorrectUser, async function(req, res, next) {
-router.get("/:username",  async function(req, res, next) {
+router.get("/:username",ensureCorrectUser,  async function(req, res, next) {
     try {
         const username = req.params.username;
         const avatar = await Avatar.getUserAvatar(username);
@@ -139,10 +139,7 @@ router.post("/:username", async function(req, res, next) {
 
 router.delete("/:username", ensureCorrectUser, async function(req, res, next) {
   try {
-    // Make sure to put this avatar into something else
-    // maybe call on the front end twice during delete?
     await Avatar.remove(req.params.username);
-    // await User.remove(req.params.username);
     return res.json({  message: "User deleted" });
   } catch (err) {
     return next(err);

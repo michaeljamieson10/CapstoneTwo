@@ -9,13 +9,17 @@ const { userNewSchema, userUpdateSchema } = require("../schemas");
 const { validate } = require("jsonschema");
 const createToken = require("../helpers/createToken");
 
-/** PATCH /[handle] {userData} => {user: updatedUser} */
+/** PATCH 
+ * Makes user admin by setting true to false
+ * checks first to see if admin is inside with isAdminUpdateSchema
+ */
 
 router.patch("/:username", ensureCorrectUser, async function(req, res, next) {
   try {
     if ("username" in req.body || "is_admin" in req.body) {
       return next({ status: 400, message: "Not allowed" });
     }
+    // MAKE A JSON SCHEMA WHEN YOU GET HOME
 
     // delete req.body.password;
     // const validation = validate(req.body, userUpdateSchema);
@@ -36,6 +40,7 @@ router.patch("/:username", ensureCorrectUser, async function(req, res, next) {
 
 router.delete("/:username", adminRequired, async function(req, res, next) {
   try {
+
     await Avatar.remove(req.params.username);
     await User.remove(req.params.username);
     return res.json({ message: "User deleted" });

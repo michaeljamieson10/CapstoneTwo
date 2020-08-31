@@ -1,7 +1,10 @@
 function changeBodyPart(bodyPart){
     /** 
+     * 
      * checks if has folder body / arm-left / arm-right
+     * 
      * then puts it into a data form to be updated to database
+     * 
      */
     if(bodyPart.includes('/torso/')){
         return {'torso': bodyPart}

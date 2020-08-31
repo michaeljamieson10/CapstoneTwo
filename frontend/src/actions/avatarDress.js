@@ -21,8 +21,6 @@ function testDress(username) {
         const cloudName = 'dreamsprawl';
         console.log(response.data.result.resources);
         dispatch(success(response.data.result.resources))
-        // dispatch(success(response));
-        // dispatch(alertActions.success('Welcome back'));
         } catch (err) {
             dispatch(failure(err.toString()));
             dispatch(alertActions.error(err.toString()));
@@ -39,13 +37,9 @@ function changeBodyPart(username, data) {
             console.log(username,data,'inside changebodypart')
         const _token = localStorage.getItem('user');
         console.log(_token,'this is token in patchroute')
-        // data['_token'] = _token;
         const response = await axios.patch(`${BASE_URL}/api/avatar/${username}`, {_token,data}); 
         console.log(response)
         dispatch(avatarDressActions.getAvatar(username));
-        // dispatch(success(response.data.result.resources))
-        // dispatch(success(response));
-        // dispatch(alertActions.success('Welcome back'));
         } catch (err) {
             dispatch(failure(err.toString()));
             dispatch(alertActions.error(err.toString()));
@@ -56,10 +50,13 @@ function changeBodyPart(username, data) {
     function failure(error) { return { type: avatarDressConstants.AVATAR_DRESS_FAILURE, error } }
 }
 function getAvatar(username) {
+
     return async function (dispatch) {
         dispatch(request(username));
         try{
-        const response = await axios.get(`${BASE_URL}/api/avatar/${username}`); 
+        const _token = localStorage.getItem('user');
+        const response = await axios.get(`${BASE_URL}/api/avatar/${username}`,{
+            params: {_token}}); 
         console.log(response)
    
         const avatar = response.data.avatar
@@ -73,68 +70,3 @@ function getAvatar(username) {
     function success(avatar) { return { type: avatarDressConstants.AVATAR_GET_SUCCESS, avatar } }
     function failure(error) { return { type: avatarDressConstants.AVATAR_DRESS_FAILURE, error } }
 }
-
-// function logout() {
-//     // userService.logout();
-//     localStorage.removeItem('user');
-//     return { type: userConstants.LOGOUT };
-// }
-
-// function register(user) {
-//     return async function (dispatch) {
-//         // dispatch(success());
-
-//         dispatch(request(user));
-//         try{
-//             const response = await axios.post(`${BASE_URL}/users`, user);
-//             dispatch(success());
-//             history.push('/')
-//             dispatch(alertActions.success('Registration successful'));
-//         } catch (err) {
-//             dispatch(failure(err.toString()));
-//             dispatch(alertActions.error(err.toString()));
-//           }
-
-//       };
-
-
-//     function request(user) { return { type: userConstants.REGISTER_REQUEST, user } }
-//     function success(user) { return { type: userConstants.REGISTER_SUCCESS, user } }
-//     function failure(error) { return { type: userConstants.REGISTER_FAILURE, error } }
-// }
-
-// function getAll() {
-
-//     return async function (dispatch) {
-//         dispatch(request());
-//         try{
-//             const _token = localStorage.getItem('user');
-//             console.log({_token},'token')
-//             const response = await axios.get(`${BASE_URL}/users`, {
-//                 params: {_token}}); 
-//             console.log(response.data.users)
-//             const users = response.data.users;
-//         dispatch(success(users));
-//         } catch (err) {
-//             dispatch(failure(err.toString()));
-//             dispatch(alertActions.error(err.toString()));
-//         }
-//     }
-
-//     function request() { return { type: userConstants.GETALL_REQUEST } }
-//     function success(users) { return { type: userConstants.GETALL_SUCCESS, users } }
-//     function failure(error) { return { type: userConstants.GETALL_FAILURE, error } }
-// }
-
-// // prefixed function name with underscore because delete is a reserved word in javascript
-// function _delete(id) {
-//     return dispatch => {
-//         dispatch(request(id));
-
-//     };
-
-//     function request(id) { return { type: userConstants.DELETE_REQUEST, id } }
-//     function success(id) { return { type: userConstants.DELETE_SUCCESS, id } }
-//     function failure(id, error) { return { type: userConstants.DELETE_FAILURE, id, error } }
-// }
-// // export default userActions;

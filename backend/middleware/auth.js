@@ -80,6 +80,7 @@ function ensureCorrectUser(req, res, next) {
     const tokenStr = req.body._token || req.query._token;
     
     let token = jwt.verify(tokenStr, SECRET);
+    console.log(token,'this username is so cool')
     // console.log(token.username,'wow you got thhis far')
     req.username = token.username;
 
