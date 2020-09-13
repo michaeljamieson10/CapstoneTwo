@@ -1,5 +1,4 @@
 import { alertActions } from './alert';
-import { alertConstants } from '../constants/alert';
 
 describe('alertActions', () =>{
     test('returns an action type with type `ALERT_SUCCESS`',() => {

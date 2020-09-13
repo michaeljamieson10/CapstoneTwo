@@ -1,6 +1,9 @@
 import { userConstants } from '../constants/users';
 
-// let user = JSON.parse(localStorage.getItem('user'));
+/**
+ * reducers only accept pure arrays no mutations
+ * 
+ */
 let user = localStorage.getItem('user');
 const initialState = user ? { loggedIn: true, user } : {};
 

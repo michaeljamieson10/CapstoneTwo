@@ -4,6 +4,11 @@ import './ActualAvatar.css'
 function ActualAvatar({chosenAvatar}) {
 
     return (
+        /**
+         * This is put in order so that the avatar images can be layed upon each other properly
+         * Left arm -> Torso -> Legs -> head -> right arm
+         * otherwise parts do not fit properly
+         */
         <div className='theRealAvatar'>
             <Image id='left_arm' cloudName="dreamsprawl" publicId={chosenAvatar['left_arm']}></Image>
             <Image id='torso' cloudName="dreamsprawl" publicId={chosenAvatar['torso']}></Image>

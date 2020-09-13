@@ -6,26 +6,44 @@ import { decode } from "jsonwebtoken";
 import './ActualAvatar.css';
 import { useHistory } from 'react-router-dom';
 import {
-    Card,
-    CardBody,
     Button
 } from "reactstrap";
 import Dropdown from 'react-bootstrap/Dropdown'
 import { userActions } from '../actions/users';
-
+/**
+ * admin page, where user can become an admin by clicking on the admin button
+ */
 function AdminPage() {
     const history = useHistory();
     const userLoggedIn = useSelector(state => state.authentication);
+    /**
+     * userLoggedin.user is the token to allow user to view page
+     */
     const { username } = decode(userLoggedIn.user)
     const users = useSelector(state => state.users);
     const dispatch = useDispatch();
+    /**
+     * renders on page load out
+     * in this case we use it to get all users using redux's dispatch 
+     * to fetch data from our database
+     * use effect also stops unnecessary rerendering
+     * runs after everysingle render
+     * empty array only allows render after first render
+     */
     useEffect(() => {
         dispatch(userActions.getAll())
     }, []);
+    /**
+     * an api call to change user to admin
+     */
     async function becomeAdmin(){
         await dreamSprawlAPI.becomeAdmin(username);
-        history.push('/login')
+        history.push('/login');
+        window.location.reload();
     }
+    /**
+     * an api call to delete user by a user that became an admin
+    */
     async function adminDeleteUser(data){
         console.log(data)
         await dreamSprawlAPI.adminDeleteUser(data);

@@ -1,26 +1,10 @@
 
-/* #av_background {
- 
-    background-image: url("/images/background/avatarbackground.jpg");
-    background-repeat: no-repeat;
-    position:relative;
-   
-} */
-
-#avatarImg {
-   
-}
 .theRealAvatar {
     position: relative;
 }
 .theRealAvatar > img {
     position: absolute;
 }
-/* .body-icon > img {
-    margin: 10px;
-    width: 45px;
-    height: 45px;
-} */
 .body-icon > img:hover {
     border: 2px solid #dde;
 }

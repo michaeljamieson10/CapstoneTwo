@@ -8,11 +8,12 @@ import {
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import { decode } from "jsonwebtoken";
 
-// use this form to add a drink/snack to db and state
+/**
+ * user logged in profile form to send data to dbs
+ */
 const ProfileForm = ({ updateUser }) => {
   const userLoggedIn = useSelector(state => state.authentication);
   const { username } = decode(userLoggedIn.user)
-  // const { currentUser } = useContext(UserContext);
   const handleSubmit = evt => {
     evt.preventDefault();
     console.log("Check out state ->", formData);

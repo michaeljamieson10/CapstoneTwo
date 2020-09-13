@@ -1,3 +1,6 @@
+-- psql dreamsprawl < data.sql 
+
+
 DROP TABLE IF EXISTS users CASCADE;
 DROP TABLE IF EXISTS avatar CASCADE;
 CREATE TABLE users (

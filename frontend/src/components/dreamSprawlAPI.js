@@ -29,7 +29,7 @@ class dreamSprawlAPI {
     }else if (verb === "deleteadmin") {
       q = axios.delete(
         `${BASE_URL}/api/${endpoint}`,  {data: { _token }});
-        // `${BASE_URL}/${endpoint}`,  { params: { _token }});
+        
     }
 
     try {
@@ -40,7 +40,11 @@ class dreamSprawlAPI {
       throw Array.isArray(message) ? message : [message];
     }
   }
-
+/**
+ * MAKES AN API CALL TO CLOUDINARY API
+ * then gets all of the choices for body parts
+ * we return the results and this populates the choices on 
+ */
   static async getAvatarChoices(username){
   try{
     const res = await this.request(`avatar/dress`,{username});
@@ -50,53 +54,48 @@ class dreamSprawlAPI {
     } catch (err) {
     }
 }
-static async getUser(username){
-try{
-  const res = await this.request(`users/${username}`);
-  console.log(res)
-  // return res.result.resources
-  } catch (err) {
-  }
-}
+
+/** 
+ * sends data to patch user
+ */
 static async updateCurrentUser(username, data) {
   let res = await this.request(`users/${username}`,data,'patch');
   return res.user;
 }
-
+/**
+ * Deletes user
+ */
 static async deleteUser(username){
   try{
-    console.log(username)
-    const res = await this.request(`users/${username}`,{},"delete");
-    // console.log(res.result.resources)
-    // return res.result.resources
+    await this.request(`users/${username}`,{},"delete");
     } catch (err) {
   }
 }
+/**
+ * this is called after deleting user 
+ */
 static async deleteAvatar(username){
   try{
-    console.log(username)
-
-    const res = await this.request(`avatar/${username}`,{},"delete");
-    // console.log(res.result.resources)
-    // return res.result.resources
+     await this.request(`avatar/${username}`,{},"delete");
     } catch (err) {
   }
 }
+/**
+ * patches  the admin to true to the user by the username param
+ */
 static async becomeAdmin(username){
   try{
-    console.log(username)
-    const res = await this.request(`admin/${username}`,{},"patch");
-    // console.log(res.result.resources)
-    // return res.result.resources
+    await this.request(`admin/${username}`,{},"patch");
     } catch (err) {
   }
 }
+/**
+ * deletes user via admin route, user must be an admin in order to delete
+ * delete other users
+ */
 static async adminDeleteUser(username){
   try{
-    console.log(username)
-    const res = await this.request(`admin/${username}`,{},"deleteadmin");
-    // console.log(res.result.resources)
-    // return res.result.resources
+    await this.request(`admin/${username}`,{},"deleteadmin");
     } catch (err) {
   }
 }

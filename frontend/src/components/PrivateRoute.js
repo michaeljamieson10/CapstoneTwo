@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
 import { Route, Redirect } from "react-router-dom";
-import { useDispatch, useSelector } from 'react-redux';
-import { userActions } from '../actions/users';
-// import UserContext from "./UserContext";
+// import { useDispatch, useSelector } from 'react-redux';
+// import { userActions } from '../actions/users';
+
 
 function PrivateRoute({ exact, path, children }) {
   const user = localStorage.getItem('user')

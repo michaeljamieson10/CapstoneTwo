@@ -1,5 +1,8 @@
 import { alertConstants } from '../constants/alert';
-
+/**
+ * 
+ *alerts whatever message is in the acton
+ */
 export function alert(state = {}, action) {
   switch (action.type) {
     case alertConstants.SUCCESS:
