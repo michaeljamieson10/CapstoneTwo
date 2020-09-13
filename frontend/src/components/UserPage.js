@@ -1,8 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import { Table } from 'reactstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { Redirect, useParams } from "react-router-dom";
-import { userActions } from '../actions/users';
+import { useParams } from "react-router-dom";
 import dreamSprawlAPI from './dreamSprawlAPI';
 
 const UserPage = (props) => {

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import { Table } from 'reactstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { userActions } from '../actions/users';

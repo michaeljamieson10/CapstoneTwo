@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { userActions } from '../actions/users';
 
 function LoginPage() {
+    // in order to keep updating form we need to use state
     const [inputs, setInputs] = useState({
         username: '',
         password: ''
@@ -23,7 +24,10 @@ function LoginPage() {
         const { name, value } = e.target;
         setInputs(inputs => ({ ...inputs, [name]: value }));
     }
-
+    /** dispatches user.authentication to set logging in to true
+     * then also logins user if info is correct
+     * then returns token into state.authentication
+     */
     function handleSubmit(e) {
         e.preventDefault();
 
@@ -40,6 +44,9 @@ function LoginPage() {
                 <div className="form-group">
                     <label>Username</label>
                     <input type="text" name="username" value={username} onChange={handleChange} className={'form-control' + (submitted && !username ? ' is-invalid' : '')} />
+                    {/* if username is blank and submitted will state in red text username is required 
+                    sets submitted to true
+                    */}
                     {submitted && !username &&
                         <div className="invalid-feedback">Username is required</div>
                     }
@@ -47,6 +54,7 @@ function LoginPage() {
                 <div className="form-group">
                     <label>Password</label>
                     <input type="password" name="password" value={password} onChange={handleChange} className={'form-control' + (submitted && !password ? ' is-invalid' : '')} />
+                   {/* if password is blank and submitted will state in red text username is required */}
                     {submitted && !password &&
                         <div className="invalid-feedback">Password is required</div>
                     }

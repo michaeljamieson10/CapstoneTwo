@@ -28,6 +28,9 @@ function App() {
     return (
         <div className="App">
                 <div className="col-md-8 offset-md-2">
+                    {/*
+                        Where alert message is displayed 
+                     */}
                     {alert.message &&
                         <div className={`alert ${alert.type}`}>{alert.message}</div>
                     }

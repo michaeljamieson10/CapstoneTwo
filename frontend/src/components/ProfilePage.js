@@ -1,5 +1,4 @@
-import React, { useContext } from 'react';
-// import UserContext from "./UserContext";
+import React from 'react';
 import ProfileForm from './ProfileForm';
 import dreamSprawlAPI from './dreamSprawlAPI';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
@@ -12,14 +11,17 @@ import {
     Button
   } from "reactstrap";
 
+/**
+ * renders component profile form
+ * ability to update user data
+ *  has function delete user where user can delete their account.
+*/
 function Profile() {
-    // const { currentUser, setCurrentUser } = useContext(UserContext);
     const userLoggedIn = useSelector(state => state.authentication);
     const { username } = decode(userLoggedIn.user)
     const history = useHistory();
     async function updateUser(data) {
         let user = await dreamSprawlAPI.updateCurrentUser(username, data);
-        // setCurrentUser(user);
     }
     async function deleteUser(data){
         await dreamSprawlAPI.deleteAvatar(username)

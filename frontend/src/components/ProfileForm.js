@@ -1,11 +1,10 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import {
   Card,
   CardBody,
   Button
 } from "reactstrap";
-// import UserContext from "./UserContext";
-import { useSelector, useDispatch, shallowEqual } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { decode } from "jsonwebtoken";
 
 /**
@@ -16,8 +15,8 @@ const ProfileForm = ({ updateUser }) => {
   const { username } = decode(userLoggedIn.user)
   const handleSubmit = evt => {
     evt.preventDefault();
-    console.log("Check out state ->", formData);
-    // do something with the data submitted
+    
+    // update data from form data
 
     updateUser(formData)
     setFormData({
@@ -50,7 +49,7 @@ const ProfileForm = ({ updateUser }) => {
     <Card>
       <CardBody>
     <form onSubmit={handleSubmit}>
-  {/* <h6>Username: {currentUser.username}</h6> */}
+  
       <p>
       <label htmlFor="first_name">First Name:</label>
       <input

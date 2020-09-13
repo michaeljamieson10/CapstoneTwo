@@ -2,11 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { userActions } from '../actions/users';
-// import userActions from '../actions';
-import { useHistory } from "react-router-dom";
 
 function RegisterPage() {
-    // const history = useHistory();
     const [user, setUser] = useState({
         first_name: 'mike',
         last_name: 'jamieson',

@@ -10,11 +10,15 @@ import {
 } from "reactstrap";
 import Dropdown from 'react-bootstrap/Dropdown'
 import { userActions } from '../actions/users';
+//anything that starts with *use* will be a hook in a functional component
 /**
  * admin page, where user can become an admin by clicking on the admin button
  */
 function AdminPage() {
     const history = useHistory();
+    /**
+     * useSelector pulls data from react store
+     */
     const userLoggedIn = useSelector(state => state.authentication);
     /**
      * userLoggedin.user is the token to allow user to view page
@@ -43,6 +47,8 @@ function AdminPage() {
     }
     /**
      * an api call to delete user by a user that became an admin
+     * redux is to pass data to a component, redux is not used to delete this user
+     * dispatch repulls the data refreshing it from the store and api
     */
     async function adminDeleteUser(data){
         console.log(data)

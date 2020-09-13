@@ -1,9 +1,10 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Route, Redirect } from "react-router-dom";
-// import { useDispatch, useSelector } from 'react-redux';
-// import { userActions } from '../actions/users';
 
-
+/**
+ * private route makes the route private
+ * it checks if user exist in the local storage which is a token
+ */
 function PrivateRoute({ exact, path, children }) {
   const user = localStorage.getItem('user')
   if (!user) {

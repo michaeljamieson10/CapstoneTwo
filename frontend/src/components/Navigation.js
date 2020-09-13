@@ -1,14 +1,16 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Link, NavLink } from "react-router-dom";
-import { useDispatch, useSelector } from 'react-redux';
-import { userActions } from '../actions/users';
+import { useSelector } from 'react-redux';
 import Navbar from 'react-bootstrap/Navbar';
 import './Navigation.css'
 
-
+/** 
+ * if logged in shows logged in nav 
+ * if logged out shows logged register/login
+*/
 function Navigation() {
   const userLoggedIn = useSelector(state => state.authentication.loggedIn);
-  const dispatch = useDispatch()
+
   function loggedInNav() {
     return (
       
