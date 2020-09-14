@@ -1,3 +1,22 @@
+## Front End Architecture
+App
+├── Navigation
+└─┬ Routes
+  ├ Home
+  ├─┬ Dress *private route*
+  │ ├── ActualAvatar(photo of the users avatar)
+  │ └── Tablist(data pulled from api and put into a tablist)
+  ├ LoginPage
+  ├ RegisterPage
+  ├ AdminPage *private route*
+  ├ UserAllPage *private route*
+  ├─┬ ProfilePage *private route*
+    └── ProfileForm
+
+  
+Data kept in stores are the users and avatar to be accessed throughout the app and prevent prop drilling
+#########
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

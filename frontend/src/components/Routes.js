@@ -1,14 +1,12 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
-// import FilmList from "./FilmList";
 import Dress from "./Dress";
-// import PersonList from "./PersonList";
 import PrivateRoute from './PrivateRoute';
 import HomePage from "./HomePage";
 import LoginPage from "./LoginPage";
 import RegisterPage from "./RegisterPage";
 import UserAllPage from "./UserAllPage";
-import UserPage from "./UserPage";
+// import UserPage from "./UserPage";
 import ProfilePage from "./ProfilePage"
 import AdminPage from "./AdminPage";
 /** these are routes  which when the url goes to the route it will render that componenet inside the route */
@@ -23,9 +21,6 @@ function Routes() {
       </PrivateRoute>
       <PrivateRoute exact path="/users/all">
         <UserAllPage />
-      </PrivateRoute>
-      <PrivateRoute exact path="/users/:username">
-        <UserPage />
       </PrivateRoute>
       <PrivateRoute exact path="/admin">
         <AdminPage />
