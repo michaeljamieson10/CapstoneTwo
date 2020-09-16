@@ -9,14 +9,6 @@ const db = require("../../db");
 
 // Database DDL (for tests)
 const DB_TABLES = {
-//   companies: `
-//   CREATE TABLE companies(
-//     handle TEXT PRIMARY KEY,
-//     name TEXT UNIQUE NOT NULL,
-//     num_employees INTEGER,
-//     description TEXT,
-//     logo_url TEXT
-//   )`,
   users: `
   CREATE TABLE users(
     username TEXT PRIMARY KEY,
@@ -36,22 +28,6 @@ const DB_TABLES = {
     torso text,
     username text REFERENCES users (username)
   )`
-//   jobs: `
-//   CREATE TABLE jobs(
-//     id SERIAL PRIMARY KEY,
-//     title TEXT,
-//     salary FLOAT,
-//     equity FLOAT CHECK(equity <= 1.0),
-//     company_handle TEXT NOT NULL REFERENCES companies(handle) ON DELETE CASCADE
-//   )`,
-//   applications: `
-//   CREATE TABLE applications(
-//     username TEXT NOT NULL REFERENCES users(username) ON DELETE CASCADE,
-//     job_id INTEGER  REFERENCES jobs(id) ON DELETE CASCADE,
-//     state TEXT,
-//     created_at TIMESTAMP DEFAULT NOW(),
-//     PRIMARY KEY(username, job_id)
-//   )`
 };
 
 // global auth variable to store things for all the tests
@@ -59,11 +35,8 @@ const TEST_DATA = {};
 
 async function beforeAllHook() {
   try {
-  //   await db.query(DB_TABLES["companies"]);
     await db.query(DB_TABLES["users"]);
     await db.query(DB_TABLES["avatar"]);
-  //   await db.query(DB_TABLES["jobs"]);
-  //   await db.query(DB_TABLES["applications"]);
   } catch (error) {
     console.error(error);
   }

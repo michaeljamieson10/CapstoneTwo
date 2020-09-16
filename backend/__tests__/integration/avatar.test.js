@@ -4,12 +4,6 @@ const request = require("supertest");
 // app imports
 const app = require("../../app");
 
-// model imports
-const User = require("../../models/user");
-const Avatar = require("../../models/avatar");
-
-// 
-// const changeBodyPart = require("../helpers/partialUpdate");
 const {
   TEST_DATA,
   afterEachHook,
@@ -50,28 +44,7 @@ describe("GET /api/avatar/dress", async function () {
 });
 
 
-describe("GET /users/:username", async function () {
-  test("Gets a single a user", async function () {
-    const response = await request(app)
-        .get(`/api/users/${TEST_DATA.currentUsername}`)
-        .send({_token: `${TEST_DATA.userToken}`});
-    expect(response.body.user).toHaveProperty("username");
-    expect(response.body.user).not.toHaveProperty("password");
-    expect(response.body.user.username).toBe("test");
-  });
-
-  test("Responds with a 404 if it cannot find the user in question", async function () {
-    const response = await request(app)
-        .get(`/api/users/yaaasss`)
-        .send({
-          _token: `${TEST_DATA.userToken}`
-        });
-    expect(response.statusCode).toBe(404);
-  });
-});
-
-
-describe("PATCH /users/:username", async () => {
+describe("PATCH /avatar/:username", async () => {
   test("Updates a single a user's first_name with a selective update, need password to update", async function () {
     console.log(TEST_DATA.currentUsername);
     const response = await request(app)
@@ -86,46 +59,11 @@ describe("PATCH /users/:username", async () => {
         "torso": "avatar/torso/torso-male_c1mw30",
         "username": "test"
       });
-    // expect(user.username).not.toBe(null);
   });
-
-  // test("Updates a single a user's password", async function () {
-    // const response = await request(app)
-        // .patch(`/users/${TEST_DATA.currentUsername}`)
-        // .send({_token: `${TEST_DATA.userToken}`, password: "foo12345"});
-    // const user = response.body.user;
-    // expect(user).toHaveProperty("username");
-    // expect(user).not.toHaveProperty("password");
-  // });
-
-//   test("Prevents a bad user update, need password to update", async function () {
-//     const response = await request(app)
-//         .patch(`/api/users/${TEST_DATA.currentUsername}`)
-//         .send({cactus: false, _token: `${TEST_DATA.userToken}`,"password": "secret"});
-//     expect(response.statusCode).toBe(400);
-//   });
-
-//   test("Forbids a user from editing another user", async function () {
-//     const response = await request(app)
-//         .patch(`/api/users/notme`)
-//         .send({password: "secret", _token: `${TEST_DATA.userToken}`});
-//     expect(response.statusCode).toBe(401);
-//   });
-
-  // test("Responds with a 404 if it cannot find the user in question", async function () {
-  //   // delete user first
-  //   await request(app)
-  //       .delete(`/api/users/${TEST_DATA.currentUsername}`)
-  //       .send({_token: `${TEST_DATA.userToken}`});
-  //   const response = await request(app)
-  //       .patch(`/api/users/${TEST_DATA.currentUsername}`)
-  //       .send({"password": "secret", _token: `${TEST_DATA.userToken}`});
-  //   expect(response.statusCode).toBe(404);
-  // });
 });
 
 
-describe("DELETE /users/:username", async function () {
+describe("DELETE /avatar/:username", async function () {
   test("Deletes a single a user", async function () {
       // delete avatar first
     await request(app)
@@ -138,7 +76,7 @@ describe("DELETE /users/:username", async function () {
     expect(response.body).toEqual({message: "User deleted"});
   });
 
-  test("Forbids a user from deleting another user", async function () {
+  test("Forbids a user from deleting another user avatar", async function () {
     const response = await request(app)
         .delete(`/api/users/notme`)
         .send({_token: `${TEST_DATA.userToken}`});
